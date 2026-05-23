@@ -143,3 +143,7 @@ la decision de usar ese puerto fue porque tengo otros proyectos corriendo, solam
 
 Durante el desarrollo de esta evaluación se utilizó **Claude (Anthropic)** como herramienta de apoyo para la construcción y depuración del pipeline CI/CD, configuración del Dockerfile optimizado y resolución de errores en GitHub Actions. Todas las decisiones técnicas, implementación y comprensión del proyecto son propias del estudiante. Referencia: https://bibliotecas.duoc.cl/ia
 
+arreglar lo siguiente:
+
+° la parte de que se conecte a una base de datos de oracle, tenemos que hacer que corra en local, que se levante el sitio atravez de dockers en el puerto 8085
+°
