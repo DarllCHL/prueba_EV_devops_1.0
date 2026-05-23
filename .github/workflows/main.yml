@@ -1,4 +1,4 @@
-name: Spring Boot CI/CD Pipeline .
+name: Spring Boot CI/CD Pipeline
 
 on:
   push:
@@ -37,22 +37,16 @@ jobs:
       - name: Install Snyk CLI
         run: npm install -g snyk
 
-      - name: Authenticate Snyk CLI
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk auth $SNYK_TOKEN
-
       - name: Snyk test Java dependencies
         env:
-          JAVA_OPTS: "-Xmx2g"
-          MAVEN_OPTS: "-Xmx2g"
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN_2 }}
         run: snyk test --severity-threshold=high -d 2>&1 || true
 
       - name: Generate Snyk JSON Report
         if: always()
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN_2 }}
         run: |
-          echo "Generando reporte JSON de Snyk..."
           snyk test --json > snyk-report.json || echo "Falló snyk test, pero se continúa"
           ls -lh snyk-report.json || echo "No se generó el reporte"
 
@@ -126,7 +120,7 @@ jobs:
 
       - name: Run SonarCloud Analysis
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_2 }}
         run: |
           mvn verify sonar:sonar \
             -Dsonar.projectKey=darllchl \
