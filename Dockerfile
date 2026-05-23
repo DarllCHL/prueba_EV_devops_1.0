@@ -1,27 +1,35 @@
-FROM eclipse-temurin:22-jdk AS buildstage 
- 
-RUN apt-get update && apt-get install -y maven
+# ---- Stage 1: Build ----
+FROM eclipse-temurin:17-jdk-alpine AS buildstage
+
+RUN apk add --no-cache maven
 
 WORKDIR /app
 
 COPY pom.xml .
-COPY src /app/src
-COPY Wallet_N72BZHZWYZGTE7OH /app/wallet
+RUN mvn dependency:go-offline -B
+
+COPY src ./src
+COPY Wallet_N72BZHZWYZGTE7OH ./wallet
 
 ENV TNS_ADMIN=/app/wallet
 
-RUN mvn clean package
+RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:22-jdk 
+# ---- Stage 2: Runtime ----
+FROM eclipse-temurin:17-jre-alpine
 
-COPY --from=buildstage /app/target/bdget-0.0.1-SNAPSHOT.jar /app/bdget.jar
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-COPY Wallet_N72BZHZWYZGTE7OH /app/wallet
+WORKDIR /app
+
+COPY --from=buildstage /app/target/bdget-0.0.1-SNAPSHOT.jar ./bdget.jar
+COPY --from=buildstage /app/wallet ./wallet
 
 ENV TNS_ADMIN=/app/wallet
+
+RUN chown -R appuser:appgroup /app
+USER appuser
+
 EXPOSE 8080
 
-ENTRYPOINT [ "java", "-jar","/app/bdget.jar" ]
-
-
-
+ENTRYPOINT ["java", "-jar", "/app/bdget.jar"]
