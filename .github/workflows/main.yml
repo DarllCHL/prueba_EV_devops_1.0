@@ -197,7 +197,3 @@ jobs:
         run: |
           docker compose ps
           docker compose logs microservicio
-
-      - name: Tear down
-        if: always()
-        run: docker compose down
