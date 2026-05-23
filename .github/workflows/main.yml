@@ -1,4 +1,4 @@
-name: Spring Boot CI/CD Pipeline
+name: Spring Boot CI/CD Pipeline 
 
 on:
   push:
@@ -158,7 +158,7 @@ jobs:
   # 5. Despliegue simulado con Docker Compose
   deploy:
     name: Deploy with Docker Compose
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: build
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
