@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: bdget-app
     ports:
-      - "8080:8080"
+      - "8085:8085"
     environment:
       - spring.datasource.url=jdbc:oracle:thin:@s2eazr8t9kfhqm3e_tp?TNS_ADMIN=/app/wallet/
       - spring.datasource.username=java_bd
@@ -15,7 +15,7 @@ services:
       - TNS_ADMIN=/app/wallet
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8085/actuator/health"]
       interval: 30s
       timeout: 10s
       retries: 3

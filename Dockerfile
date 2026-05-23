@@ -30,6 +30,6 @@ ENV TNS_ADMIN=/app/wallet
 RUN chown -R appuser:appgroup /app
 USER appuser
 
-EXPOSE 8080
+EXPOSE 8085
 
 ENTRYPOINT ["java", "-jar", "/app/bdget.jar"]
