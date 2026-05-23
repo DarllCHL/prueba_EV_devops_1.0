@@ -40,7 +40,7 @@ jobs:
       - name: Snyk test Java dependencies
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN_2 }}
-        run: snyk test --severity-threshold=high -d 2>&1 || true
+        run: snyk test --severity-threshold=high
 
       - name: Generate Snyk JSON Report
         if: always()
