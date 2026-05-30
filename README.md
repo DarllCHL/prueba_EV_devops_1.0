@@ -2,7 +2,8 @@
 
 # 🚀 Pipeline CI/CD - Microservicio BDGet
 ### Ingeniería DevOps - DOY0101 | Evaluación Parcial N°2
-**Estudiante:** Matias Bustos
+**Estudiantes:** Matias Bustos
+                 Robeerto Gonzalez
 
 ---
 

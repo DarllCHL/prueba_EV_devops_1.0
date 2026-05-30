@@ -9,10 +9,9 @@ services:
     ports:
       - "8085:8085"
     environment:
-      - spring.datasource.url=jdbc:oracle:thin:@s2eazr8t9kfhqm3e_tp?TNS_ADMIN=/app/wallet/
-      - spring.datasource.username=java_bd
-      - spring.datasource.password=ClaseFullStack1-
-      - TNS_ADMIN=/app/wallet
+      - SERVER_PORT=8085
+      - spring.cloud.config.enabled=false
+      - spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration,org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8085/actuator/health"]
