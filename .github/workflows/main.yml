@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
+        with:
+          submodules: false
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -68,6 +70,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
+        with:
+          submodules: false
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -103,6 +107,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
+        with:
+          submodules: false
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -139,6 +145,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
+        with:
+          submodules: false
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -166,6 +174,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
+        with:
+          submodules: false
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -183,12 +193,15 @@ jobs:
 
       - name: Build JAR for Docker
         run: mvn clean package -DskipTests
+        working-directory: "bdget-main (original)/bdget-main"
 
       - name: Build Docker image
         run: docker build -t bdget-app:latest .
+        working-directory: "bdget-main (original)/bdget-main"
 
       - name: Start services with Docker Compose
         run: docker compose up -d
+        working-directory: "bdget-main (original)/bdget-main"
 
       - name: Wait for container to start
         run: sleep 20
@@ -197,3 +210,4 @@ jobs:
         run: |
           docker compose ps
           docker compose logs microservicio
+        working-directory: "bdget-main (original)/bdget-main"
