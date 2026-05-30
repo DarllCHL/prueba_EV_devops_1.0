@@ -1,4 +1,4 @@
-name: Spring Boot CI/CD Pipeline .
+name: Spring Boot CI/CD Pipeline
 
 on:
   push:
@@ -163,7 +163,7 @@ jobs:
           name: app-jar
           path: target/*.jar
 
-  # 5. Despliegue simulado con Docker Compose
+# 5. Despliegue simulado con Docker Compose
   deploy:
     name: Deploy with Docker Compose
     runs-on: self-hosted
@@ -194,11 +194,16 @@ jobs:
       - name: Build JAR for Docker
         run: mvn clean package -DskipTests
 
+      - name: Limpiar contenedor anterior
+        run: |
+          docker rm -f bdget-app || true
+          docker compose down --remove-orphans || true
+
       - name: Build Docker image
         run: docker build -t bdget-app:latest .
 
       - name: Start services with Docker Compose
-        run: docker compose up -d
+        run: docker compose up --build -d
 
       - name: Wait for container to start
         run: sleep 20
