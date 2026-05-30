@@ -193,15 +193,12 @@ jobs:
 
       - name: Build JAR for Docker
         run: mvn clean package -DskipTests
-        working-directory: "bdget-main (original)/bdget-main"
 
       - name: Build Docker image
         run: docker build -t bdget-app:latest .
-        working-directory: "bdget-main (original)/bdget-main"
 
       - name: Start services with Docker Compose
         run: docker compose up -d
-        working-directory: "bdget-main (original)/bdget-main"
 
       - name: Wait for container to start
         run: sleep 20
@@ -210,4 +207,3 @@ jobs:
         run: |
           docker compose ps
           docker compose logs microservicio
-        working-directory: "bdget-main (original)/bdget-main"
