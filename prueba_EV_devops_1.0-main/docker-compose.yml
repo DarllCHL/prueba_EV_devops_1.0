@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  microservicio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bdget-app
+    ports:
+      - "8085:8085"
+    environment:
+      - SERVER_PORT=8085
+      - spring.cloud.config.enabled=false
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8085/students"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
