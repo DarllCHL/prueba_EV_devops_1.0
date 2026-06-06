@@ -196,8 +196,8 @@ jobs:
 
       - name: Limpiar contenedor anterior
         run: |
-          docker rm -f bdget-app || true
-          docker compose down --remove-orphans || true
+          docker rm -f bdget-app
+          docker compose down --remove-orphans
 
       - name: Build Docker image
         run: docker build -t bdget-app:latest .
